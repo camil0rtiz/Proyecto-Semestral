@@ -3,11 +3,15 @@ import { Table, Typography, TableBody, TableCell, TableContainer, TableHead, Tab
 import axios from 'axios';
 import { useEffect} from 'react';
 import moment from 'moment'
+import 'moment/locale/es';
 
 //Listado de horarios disponible
 
 export default function PaymentForm({ especia, disponibilidad, setDisponibilidad, setDispo, setFecha, setHora }) {
- 
+
+
+    moment.locale('es');
+
     useEffect(() => {
 
         getDisponibilidad()
@@ -79,7 +83,12 @@ export default function PaymentForm({ especia, disponibilidad, setDisponibilidad
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {disponibilidad.filter(disponibilidad => (disponibilidad.disponible === true && (disponibilidad.especialista._id === especia))).map((disponibilidad) => (
+                    {disponibilidad.filter(disponibilidad => (disponibilidad.disponible === true && (disponibilidad.especialista._id === especia))).sort(function(a, b) { a = new Date(a.fecha); b = new Date(b.fecha); return a<b ? -1 : a>b ? 1 : 0; }).sort((a,b)=>{ if (a.hora < b.hora) return -1;
+                            else if (a.hora > b.hora)
+                                return 1;
+                            else 
+                            return 0 }).map((disponibilidad) => (
+                            
                             <TableRow
                                 // key={disponibilidad._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -94,6 +103,7 @@ export default function PaymentForm({ especia, disponibilidad, setDisponibilidad
                                 </TableCell>
                             </TableRow>
                         ))}
+
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -49,6 +49,9 @@ export default function Menu() {
 
     useEffect(() => {
         const token = localStorage.getItem('TOKEN_APP_TALLER');
+        
+        console.log(token);
+
         if (token == null) {
             window.location = '/';
         }

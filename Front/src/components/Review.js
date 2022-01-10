@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { Typography } from '@material-ui/core';
 import moment from 'moment'
+import 'moment/locale/es';
 
 export default function Review({ fecha, hora, especialidad, especialista, espe, especia }) {
 
+    moment.locale('es');
+    
     return (
 
         <React.Fragment>
